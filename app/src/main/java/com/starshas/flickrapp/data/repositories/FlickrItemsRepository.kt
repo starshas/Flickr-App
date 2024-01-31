@@ -1,7 +1,8 @@
 package com.starshas.flickrapp.data.repositories
 
 import com.starshas.flickrapp.data.models.FlickrItem
+import kotlinx.coroutines.flow.Flow
 
 interface FlickrItemsRepository {
-    suspend fun getFlickrItems(): Result<List<FlickrItem>>
+    fun getFlickrItemsFlow(): Flow<Result<List<FlickrItem>>>
 }

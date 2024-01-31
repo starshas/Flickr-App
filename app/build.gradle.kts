@@ -62,6 +62,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.sqlite:sqlite-ktx:2.4.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     kapt("androidx.hilt:hilt-compiler:1.1.0")
     testImplementation("junit:junit:4.13.2")
