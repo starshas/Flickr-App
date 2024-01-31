@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Flickr App</string>
+    <string name="main_error_while_loading_the_list">Error while loading the list!</string>
+    <string name="main_button_reload">Reload</string>
+    <string name="main_network_error">Network error!</string>
+    <string name="main_http_error">HTTP Error %1$s: %2$s</string>
+</resources>
