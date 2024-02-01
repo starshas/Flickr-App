@@ -1,8 +1,6 @@
 package com.starshas.flickrapp.data.models
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
 data class FlickrResponse(
     @SerializedName("title")
@@ -19,7 +17,6 @@ data class FlickrResponse(
     val items: List<FlickrItem>
 )
 
-@Parcelize
 data class FlickrItem(
     @SerializedName("title") val title: String,
     @SerializedName("link") val link: String,
@@ -30,9 +27,8 @@ data class FlickrItem(
     @SerializedName("author") val author: String,
     @SerializedName("author_id") val authorId: String,
     @SerializedName("tags") val tags: String
-) : Parcelable
+)
 
-@Parcelize
 data class Media(
     @SerializedName("m") val m: String
-): Parcelable
+)
