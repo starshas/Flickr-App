@@ -6,7 +6,7 @@ import com.starshas.flickrapp.R
 import com.starshas.flickrapp.data.api.ApiError
 import com.starshas.flickrapp.data.models.FlickrItem
 import com.starshas.flickrapp.domain.usecases.GetFlickrItemsUseCase
-import com.starshas.flickrapp.utils.HtmlFormatter.removeImageTagsFromHtml
+import com.starshas.flickrapp.utils.HtmlFormatter
 import com.starshas.flickrapp.utils.StringProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,13 +31,15 @@ class MainViewModel @Inject constructor(
     private val refreshTrigger = MutableSharedFlow<Unit>(replay = 1)
     val stateFlowListFlickr: StateFlow<List<FlickrItem>> = refreshTrigger
         .flatMapLatest {
-            getFlickrItems(useCaseGetFlickrItems).map { result ->
+            fetchFlickrItems(useCaseGetFlickrItems).map { result ->
                 result.getOrElse {
-                    onRepositoryError(it as ApiError)
+                    onFetchError(it as ApiError)
                     emptyList()
                 }.sortedBy { it.published }
                     .map {
-                        it.copy(description = removeImageTagsFromHtml(it.description))
+                        it.copy(
+                            description = HtmlFormatter.removeImageTagsFromHtml(it.description)
+                        )
                     }
             }
         }
@@ -53,10 +55,10 @@ class MainViewModel @Inject constructor(
         refreshListData()
     }
 
-    private fun getFlickrItems(useCaseGetFlickrItems: GetFlickrItemsUseCase)
+    private fun fetchFlickrItems(useCaseGetFlickrItems: GetFlickrItemsUseCase)
             : Flow<Result<List<FlickrItem>>> = useCaseGetFlickrItems()
 
-    private fun onRepositoryError(apiError: ApiError) {
+    private fun onFetchError(apiError: ApiError) {
         handleError(apiError)
     }
 
