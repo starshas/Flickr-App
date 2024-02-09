@@ -1,0 +1,1 @@
+Application for displaying cat images from flickr.com. Application had to be done using Kotlin, XML, Flows and MVVM. It had to use RecyclerView with items and descriptions below. Clicking the item should open the link in an external browser. Data must be sorted by the published field from the data.
