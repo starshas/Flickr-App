@@ -6,6 +6,7 @@ import com.starshas.flickrapp.data.api.ApiError
 import com.starshas.flickrapp.data.db.FlickrDao
 import com.starshas.flickrapp.data.models.FlickrItem
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,6 +17,7 @@ import java.io.IOException
 class FlickrItemsRepositoryImpl(
     private val flickrApi: FlickrApi,
     private val flickrDao: FlickrDao,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : FlickrItemsRepository {
     override fun getFlickrItemsFlow(): Flow<Result<List<FlickrItem>>> = flow {
         try {
@@ -42,5 +44,5 @@ class FlickrItemsRepositoryImpl(
             Timber.e("Exception while getting list")
             emit(Result.failure(ApiError.GenericError(e)))
         }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(dispatcher)
 }
